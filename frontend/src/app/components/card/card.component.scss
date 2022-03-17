@@ -1,0 +1,19 @@
+app-card {
+    display: block;
+    position: relative;
+    perspective: 3000px;
+    padding: 4px;
+
+    > .card-front {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        position: relative;
+        overflow: hidden;
+        visibility: visible;
+        width: 100%;
+        opacity: 1;
+        z-index: 10;
+        border-radius: 5px;
+    }
+}
