@@ -10,59 +10,35 @@ import {
     response,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
-import { IUsersService } from '../interfaces';
+import { OAuth2Client } from 'google-auth-library';
+import * as config from '../config/app.config';
 
 @controller('/account')
 export class AccountController implements interfaces.Controller {
 
-    constructor(
-        @inject(TYPES.IUsersService) private usersService: IUsersService,
-    ) { }
+    private readonly oaut2Client: OAuth2Client;
+
+    constructor() {
+        this.oaut2Client = new OAuth2Client(
+            config.GOOGLE.CLIENT_ID,
+            config.GOOGLE.CLIENT_SECRET,
+        );
+    }
 
     @httpPost('/login')
     private async login(@request() req: express.Request, @response() res: express.Response) {
         try {
-            if (req.body.username && req.body.password) {
-                const payload = await this.usersService
-                    .generateLoginToken(req.body.username, req.body.password);
+            if (req.body.token) {
+                const ticket = await this.oaut2Client
+                    .verifyIdToken({
+                        idToken: req.body.token,
+                        audience: config.GOOGLE.CLIENT_ID,
+                    });
+                const payload = ticket.getPayload();
                 res.json(payload);
                 return;
             }
         } catch (err) { console.log(err); }
         res.status(400).json({ error: 'Invalid Credentials' });
-    }
-
-    @httpPost('/token')
-    private async token(@request() req: express.Request, @response() res: express.Response) {
-        try {
-            if (req.body.token) {
-                const result = await this.usersService
-                    .validateToken(req.body.token);
-
-                if (result) {
-                    res.status(200).json(null);
-                } else {
-                    res.status(400).json({ error: 'Invalid Token' });
-                }
-                return;
-            }
-        } catch (err) { console.log(err); }
-        res.status(400).json({ error: 'Invalid Token' });
-    }
-
-    @httpGet('/token')
-    private getToken(@request() req: express.Request, @response() res: express.Response) {
-        try {
-            const token = this.usersService
-                .generateUrlToken();
-            res.json({ token });
-            return;
-        } catch (err) { console.log(err); }
-        res.status(400).json({ error: 'Invalid Token' });
-    }
-
-    @httpPost('/logout')
-    private logout(@request() req: express.Request, @response() res: express.Response) {
-        res.status(200).send();
     }
 }

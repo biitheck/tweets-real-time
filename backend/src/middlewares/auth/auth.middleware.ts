@@ -1,15 +1,13 @@
-import { Response } from 'express';
-import { IRequest } from '../../interfaces';
+import { Response, Request } from 'express';
+import { OAuth2Client } from 'google-auth-library';
+import * as config from '../../config/app.config';
 
 const allowPaths = [
     '/api/v1/account/login',
-    '/api/v1/account/token',
-    '/api/v1/account/logout',
     '/api/v1/ready',
-    '/graphql',
 ];
 
-const authMiddleware = async (req: IRequest, res: Response, next: any) => {
+const authMiddleware = async (req: Request, res: Response, next: any) => {
     // Authorized urls.
     if (allowPaths.
         findIndex(f =>
@@ -21,10 +19,21 @@ const authMiddleware = async (req: IRequest, res: Response, next: any) => {
 
     if (token) {
         token = token.replace('Bearer ', '');
-        const user = verifyUserToken(token);
+        
+        const oaut2Client = new OAuth2Client(
+            config.GOOGLE.CLIENT_ID,
+            config.GOOGLE.CLIENT_SECRET,
+        );
 
-        if (user) {
-            req.user = user;
+        const ticket = await oaut2Client
+            .verifyIdToken({
+                idToken: req.body.token,
+                audience: config.GOOGLE.CLIENT_ID,
+            });
+
+        const payload = ticket.getPayload();
+
+        if (payload) {
             next();
             return;
         }
