@@ -5,7 +5,12 @@ const apiPrefix = environment.apiServer.prefix;
 const apiUrl = `${apiServer}/${apiPrefix}`;
 
 export const Targets = {
+    SignIn: `${apiUrl}/account`,
     Socket: `${apiUrl}/socket-tweet`,
+};
+
+export const google = {
+    clientId: environment.google.clientId,
 };
 
 export const messages = {

@@ -12,6 +12,13 @@ import { AuthGuard } from './guards/auth.guard';
 import { ToastComponent } from './components/toast/toast.component';
 import { DirectivesModule } from './directives/directives';
 
+// Social Logins packages.
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+
+// Config.
+import * as config from './config/app.config';
+
 @NgModule({
     declarations: [
         AppComponent
@@ -21,7 +28,7 @@ import { DirectivesModule } from './directives/directives';
         BrowserAnimationsModule,
         HttpClientModule,
         AppRouting,
-
+        SocialLoginModule,
         ToastrModule.forRoot({
             maxOpened: 1,
             timeOut: 5000,
@@ -39,6 +46,20 @@ import { DirectivesModule } from './directives/directives';
     ],
     providers: [
         AuthGuard,
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider(
+                            config.google.clientId,
+                        )
+                    },
+                ]
+            } as SocialAuthServiceConfig,
+        }
     ],
     bootstrap: [AppComponent]
 })
