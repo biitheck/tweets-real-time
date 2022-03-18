@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SocialAuthService } from 'angularx-social-login';
+import { DataService } from '../../../services/data.service';
 
 @Component({
     selector: 'app-tweets-main',
@@ -15,9 +16,9 @@ export class TweetsMainComponent implements OnInit, OnDestroy {
     private _onDestroy: Subject<void> = new Subject<void>();
 
     constructor(
-        private route: ActivatedRoute,
         private router: Router,
         private toasterSrv: ToastrService,
+        private dataSrv: DataService,
         private authService: SocialAuthService,
     ) {
         this.loading = false;
@@ -30,7 +31,12 @@ export class TweetsMainComponent implements OnInit, OnDestroy {
         this._onDestroy.complete();
     }
 
-    signOut(): void {
-        this.authService.signOut();
+    async signOut(): Promise<void> {
+        try {
+            await this.authService.signOut();
+        } finally {
+            this.dataSrv.clean();
+            void this.router.navigate(['']);
+        }
     }
 }

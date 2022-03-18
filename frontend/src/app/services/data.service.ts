@@ -1,3 +1,4 @@
+import { User } from './../models';
 import { Injectable } from '@angular/core';
 import { WebStorageService } from './web-storage.service';
 import { environment } from '../../environments/environment';
@@ -11,13 +12,18 @@ export class DataService {
         private webStorageSrv: WebStorageService) {
     }
 
-    createToken(token: string, username: string, type: string): void {
-        this.webStorageSrv.set(environment.tokenKey, token);
-        this.webStorageSrv.set('username', username);
+    setUser(user: User): void {
+        this.webStorageSrv.set(environment.userKey, JSON.stringify(user));
     }
 
-    getUserName(): string {
-        return this.webStorageSrv.get('username');
+    getUser(): User {
+        const payload = this.webStorageSrv.get(environment.userKey);
+        return JSON.parse(payload) as User;
+    }
+
+    isLoggedIn(): boolean {
+        const payload = this.webStorageSrv.get(environment.userKey);
+        return JSON.parse(payload) !== undefined && JSON.parse(payload) !== null;
     }
 
     clean(): void {

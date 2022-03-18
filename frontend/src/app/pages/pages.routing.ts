@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const pagesRoutes: Routes = [
     {
@@ -13,6 +14,7 @@ const pagesRoutes: Routes = [
     },
     {
         path: 'tweets',
+        canActivate: [AuthGuard],
         loadChildren: () => import('./tweets/tweets.module')
             .then(m => m.TweetsModule)
     },
