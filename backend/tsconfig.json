@@ -1,0 +1,32 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
+        "sourceMap": true,
+        "outDir": "./build",
+        "rootDir": "./src",
+        "removeComments": true,
+        "strict": true,
+        "moduleResolution": "node",
+        "baseUrl": "./src",
+        "typeRoots": ["src/@types", "./node_modules/@types"],
+        "types": ["reflect-metadata"],
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "allowSyntheticDefaultImports": true,
+        "paths": {
+            "@models": ["../node_modules/tweets-real-time-models/dist"],
+            "@models/*": ["../node_modules/tweets-real-time-models/dist/*"]
+        },
+        "plugins": [{ "transform": "typescript-transform-paths" }]
+    },
+    "exclude": ["./node_modules", "./build", ".vscode"],
+    "include": ["./src/**/*"]
+}

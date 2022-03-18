@@ -1,0 +1,15 @@
+NODE_ENV=dev
+NODE_TLS_REJECT_UNAUTHORIZED='0'
+
+# Node.js server configuration
+PORT=57506
+
+# Google app configuration
+GOOGLE_CLIENT_ID = ''
+GOOGLE_CLIENT_SECRET = ''
+
+# TWITTER API configuration
+TWITTER_API_URL = 'https://api.twitter.com/2/'
+TWITTER_API_KEY= ''
+TWITTER_API_SECRET= ''
+TWITTER_BEARER_TOKEN= ''
