@@ -1,0 +1,92 @@
+<app-card>
+    <div
+        fxLayout="row"
+        fxLayoutAlign="start start"
+        fxLayoutGap="20px"
+        class="tweet"
+    >
+        <!-- #region Avatar -->
+        <div fxFlex="42px">
+            <div
+                class="tweet__avatar"
+                [ngStyle]="{
+                    'background-image':
+                        'url(' + twitterUser?.profile_image_url + ')'
+                }"
+            ></div>
+        </div>
+        <!-- #endregion Avatar -->
+
+        <div fxFlex fxLayout="column">
+            <!-- #region User Info -->
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <span class="tweet__name">{{ twitterUser?.name }}</span>
+                <span class="tweet__username"
+                    >@{{ twitterUser?.username }}</span
+                >
+            </div>
+            <!-- #endregion User Info -->
+
+            <!-- #region Time -->
+            <span class="tweet__created_at">{{
+                tweet?.data?.created_at | date: 'MM-dd-yy HH:mm:ss'
+            }}</span>
+            <!-- #endregion Time -->
+
+            <!-- #region Tweet -->
+            <span
+                class="tweet__text"
+                [innerHTML]="tweet?.data?.text | hmColor: '#0abab5'"
+            ></span>
+            <!-- #endregion Tweet -->
+
+            <!-- #region Media -->
+            <div
+                *ngIf="media?.type === 'photo'"
+                fxLayout="column"
+                fxLayoutAlign="center center"
+                class="tweet__media"
+            >
+                    <img [src]="media?.url" />
+            </div>
+            <!-- #region Media -->
+
+            <!-- #region Public Metrics -->
+            <div
+                class="tweet__public_metrics"
+                fxLayout="row"
+                fxLayoutAlign="start end"
+            >
+                <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="tweet__public_metrics--red"
+                            >favorite</mat-icon
+                        >
+                        <span class="tweet__public_metrics__count">{{
+                            tweet?.data?.public_metrics?.like_count
+                        }}</span>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="tweet__public_metrics--blue"
+                            >comment</mat-icon
+                        >
+                        <span class="tweet__public_metrics__count">{{
+                            tweet?.data?.public_metrics?.reply_count
+                        }}</span>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="tweet__public_metrics--green"
+                            >repeat</mat-icon
+                        >
+                        <span class="tweet__public_metrics__count">{{
+                            tweet?.data?.public_metrics?.retweet_count
+                        }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion Public Metrics -->
+        </div>
+    </div>
+</app-card>

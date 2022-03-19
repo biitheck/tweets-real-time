@@ -19,6 +19,9 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 // Config.
 import * as config from './config/app.config';
 
+// Socket.
+import { SocketIoModule } from 'ngx-socket-io';
+
 @NgModule({
     declarations: [
         AppComponent
@@ -36,6 +39,12 @@ import * as config from './config/app.config';
             preventDuplicates: true,
             positionClass: 'toast-top-center',
             toastComponent: ToastComponent,
+        }),
+
+        // SocketIO
+        SocketIoModule.forRoot({
+            url: config.apiUrl,
+            options: { autoConnect: false, }
         }),
 
         // Directives

@@ -1,0 +1,69 @@
+@import "variables";
+
+:host {
+    .tweet {
+        &__avatar {
+            width: 42px;
+            height: 42px;
+            background-size: cover;
+            display: block;
+            border-radius: 125px;
+            -webkit-border-radius: 125px;
+            -moz-border-radius: 125px;
+        }
+
+        &__name {
+            line-height: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        &__username {
+            color: $secondary-color;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+
+        &__created_at {
+            color: $light-gray-color;
+            font-size: 0.8rem;
+            line-height: 1.5rem;
+        }
+
+        &__text {
+            margin-top: 0.5rem;
+            line-height: 1.5rem;
+        }
+
+        &__media {
+            margin-top: 1.2rem;
+            img {
+                width: 100%;
+                height: 20%;
+                border-radius: 0.9rem;
+            }
+        }
+
+        &__public_metrics {
+            margin-top: 1.2rem;
+
+            &--blue {
+                color: #1ca1f3;
+            }
+
+            &--green {
+                color: #679846;
+            }
+
+            &--red {
+                color: #a12929;
+            }
+
+            &__count {
+                color: #e7dddd;
+                margin-left: 0.8rem;
+                font-size: 1rem;
+                line-height: 1.5rem;
+            }
+        }
+    }
+}

@@ -1,1 +1,68 @@
-<div (click)="signOut()">Salir</div>
+<div style="padding: 2.5rem">
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <div fxFlex="25" fxFlex.xs="100">
+            <app-card>
+                <div fxLayout="column" fxLayoutGap="20px">
+                    <app-user-info [user]="user"></app-user-info>
+
+                    <mat-form-field>
+                        <mat-chip-list
+                            #topicsList
+                            aria-label="Topic selection"
+                            color="accent"
+                        >
+                            <mat-chip
+                                color="primary"
+                                *ngFor="let topic of topics"
+                                [selectable]="true"
+                                [removable]="true"
+                                (removed)="onRemoveTopic(topic)"
+                            >
+                                {{ topic }}
+                                <mat-icon matChipRemove>cancel</mat-icon>
+                            </mat-chip>
+                            <input
+                                placeholder="Select a topic..."
+                                #topicInput
+                                [formControl]="topicsCtrl"
+                                [matAutocomplete]="autoComplete"
+                                [matChipInputFor]="topicsList"
+                                [matChipInputSeparatorKeyCodes]="
+                                    separatorKeysCodes
+                                "
+                                (matChipInputTokenEnd)="onAddTopic($event)"
+                            />
+                        </mat-chip-list>
+                        <mat-autocomplete
+                            #autoComplete="matAutocomplete"
+                            (optionSelected)="onSelectedTopic($event)"
+                        >
+                            <mat-option
+                                *ngFor="let topic of filteredTopics | async"
+                                [value]="topic"
+                            >
+                                {{ topic }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <button mat-button color="accent" (click)="signOut()">
+                        Sign out
+                    </button>
+                </div>
+            </app-card>
+        </div>
+
+        <div
+            fxFlex
+            fxLayout="column"
+            fxLayoutGap="20px"
+            myPerfectScrollbar
+            class="scrollable"
+            style="height: calc(100vh - 80px)"
+        >
+            <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet">
+            </app-tweet>
+        </div>
+    </div>
+</div>

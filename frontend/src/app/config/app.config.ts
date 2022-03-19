@@ -1,12 +1,11 @@
 import { environment } from './../../environments/environment';
 
-const apiServer = environment.apiServer.url;
-const apiPrefix = environment.apiServer.prefix;
-const apiUrl = `${apiServer}/${apiPrefix}`;
+export const apiServer = environment.apiServer.url;
+export const apiPrefix = environment.apiServer.prefix;
+export const apiUrl = `${apiServer}`;
 
 export const Targets = {
     SignIn: `${apiUrl}/account`,
-    Socket: `${apiUrl}/socket-tweet`,
 };
 
 export const google = {
