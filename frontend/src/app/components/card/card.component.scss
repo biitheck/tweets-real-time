@@ -1,0 +1,22 @@
+@import "variables";
+
+app-card {
+    display: block;
+    position: relative;
+    perspective: 3000px;
+    padding: 4px;
+
+    > .card_front {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        position: relative;
+        overflow: hidden;
+        visibility: visible;
+        opacity: 1;
+        z-index: 10;
+        border-radius: 5px;
+        background-color: $gray-color;
+        padding: 1.7rem;
+    }
+}

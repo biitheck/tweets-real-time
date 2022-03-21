@@ -1,0 +1,46 @@
+@import "variables";
+
+:host {
+    .content-404 {
+        height: 100vh !important;
+        padding: 2.5rem !important;
+
+        .title {
+            font-size: 3rem !important;
+            margin-top: 6rem !important;
+            letter-spacing: -0.025em !important;
+            font-weight: 800 !important;
+            text-align: center !important;
+            color: rgb(255, 255, 255);
+            width: 100% !important;
+        }
+
+        .sub-title {
+            font-size: 1.125rem !important;
+            letter-spacing: -0.025em !important;
+            font-weight: 500 !important;
+            text-align: center !important;
+            margin-top: 0.5rem !important;
+            color: rgb(235, 235, 235);
+            width: 100% !important;
+        }
+
+        .redirect {
+            text-decoration-line: none !important;
+            font-weight: 500 !important;
+            margin-top: 3rem !important;
+            text-decoration: inherit;
+            color: #0abab5;
+            text-align: center !important;
+            width: 100% !important;
+        }
+
+        .max-w-3xl {
+            max-width: 48rem !important;
+        }
+
+        .w-full {
+            width: 100% !important;
+        }
+    }
+}

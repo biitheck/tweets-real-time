@@ -1,0 +1,9 @@
+@import "variables";
+
+:host {
+    .login {
+        padding: 10rem;
+        border-radius: 0.5rem;
+        background-color: $gray-color;
+    }
+}

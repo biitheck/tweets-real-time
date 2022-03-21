@@ -1,0 +1,90 @@
+<div style="padding: 2.5rem">
+    <div
+        fxLayout="row"
+        fxLayout.sm="row wrap"
+        fxLayout.xs="row wrap"
+        fxLayoutAlign="start start"
+        fxLayoutGap="20px"
+        fxLayoutGap.xs="0px"
+        fxLayoutGap.sm="0px"
+    >
+        <div fxFlex.xs="100" fxFlex.sm="100">
+            <app-card style>
+                <div fxLayout="column" fxLayoutGap="20px">
+                    <app-user-info [user]="user"></app-user-info>
+
+                    <mat-form-field>
+                        <mat-chip-list
+                            #topicsList
+                            aria-label="Topic selection"
+                            color="accent"
+                        >
+                            <mat-chip
+                                color="primary"
+                                *ngFor="let topic of topics"
+                                [selectable]="true"
+                                [removable]="topics?.length > 1"
+                                (removed)="onRemoveTopic(topic)"
+                            >
+                                {{ topic }}
+                                <mat-icon
+                                    *ngIf="topics?.length > 1"
+                                    matChipRemove
+                                    >cancel</mat-icon
+                                >
+                            </mat-chip>
+                            <input
+                                placeholder="Select a topic..."
+                                #topicInput
+                                [formControl]="topicsCtrl"
+                                [matAutocomplete]="autoComplete"
+                                [matChipInputFor]="topicsList"
+                                [matChipInputSeparatorKeyCodes]="
+                                    separatorKeysCodes
+                                "
+                                (matChipInputTokenEnd)="onAddTopic($event)"
+                            />
+                        </mat-chip-list>
+                        <mat-autocomplete
+                            #autoComplete="matAutocomplete"
+                            (optionSelected)="onSelectedTopic($event)"
+                        >
+                            <mat-option
+                                *ngFor="let topic of filteredTopics | async"
+                                [value]="topic"
+                            >
+                                {{ topic }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <button
+                        mat-flat-button
+                        color="accent"
+                        (click)="onSaveTopics()"
+                    >
+                        Save
+                    </button>
+
+                    <button mat-button color="accent" (click)="signOut()">
+                        Sign out
+                    </button>
+                </div>
+            </app-card>
+        </div>
+
+        <div
+            fxFlex="50"
+            fxFlex.xs="100"
+            fxFlex.sm="100"
+            fxFlex.md="66.66"
+            fxLayout="column"
+            fxLayoutGap="20px"
+            myPerfectScrollbar
+            class="scrollable tweets_content"
+        >
+            <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet">
+            </app-tweet>
+        </div>
+    </div>
+</div>
