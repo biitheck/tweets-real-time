@@ -17,5 +17,5 @@ jobs:
           email: ${{ secrets.HEROKU_EMAIL }}
           api_key: ${{ secrets.HEROKU_API_KEY }}
           app_name: ${{ secrets.HEROKU_APP_NAME }}
-          dockerfile_path: 'Dockerfile'
+          dockerfile_path: ''
           options: '--build-arg NODE_ENV=${{ secrets.NODE_ENV }} --build-arg NODE_TLS_REJECT_UNAUTHORIZED=0 --build-arg PORT=${{ secrets.PORT }} --build-arg GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} --build-arg GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} --build-arg TWITTER_API_URL=${{ secrets.TWITTER_API_URL }} --build-arg TWITTER_API_KEY=${{ secrets.TWITTER_API_KEY }} --build-arg TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }} --build-arg TWITTER_BEARER_TOKEN=${{ secrets.TWITTER_BEARER_TOKEN }}'
