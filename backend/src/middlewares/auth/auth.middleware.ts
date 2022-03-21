@@ -3,8 +3,8 @@ import { OAuth2Client } from 'google-auth-library';
 import * as config from '../../config/app.config';
 
 const allowPaths = [
-    '/api/v1/account/login',
-    '/api/v1/ready',
+    '/account/login',
+    '/ready',
 ];
 
 const authMiddleware = async (req: Request, res: Response, next: any) => {

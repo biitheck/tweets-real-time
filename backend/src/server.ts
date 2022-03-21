@@ -5,4 +5,5 @@ const app = new App({
     port: _CONFIG.SERVER.PORT,
     isDev: !_CONFIG.IS_PROD,
 });
-app.start();
+
+void app.start();
