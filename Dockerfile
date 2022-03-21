@@ -13,7 +13,7 @@ RUN cd frontend && echo "export const environment = { production: true, apiServe
 RUN cd frontend && npm install @angular/cli@10.2.3
 # Build frontend.
 RUN cd frontend && npm install --verbose --force 
-RUN cd frontend && npm run build:prod
+RUN cd frontend && npm run build
 
 # Server
 FROM node:16 AS server-build
