@@ -18,7 +18,8 @@ RUN echo $GOOGLE_CLIENT_ID
 RUN cd frontend && mkdir environments && touch environment.prod.ts
 RUN echo "export const environment = { production: true, apiServer: { url: '', prefix: 'api/v1', }, google: { clientId: ${GOOGLE_CLIENT_ID}, }, userKey: 'user_data', messages: { success: { title: 'Success', message: 'Action was completed successfully' }, error: { title: 'Error...', message: 'Please try again', }},};"
 # Build frontend.
-RUN cd frontend && npm install && npm run build:prod
+RUN cd frontend && npm install --force 
+RUN cd frontend && npm run build:prod
 
 # Server
 FROM node:12 AS server-build
