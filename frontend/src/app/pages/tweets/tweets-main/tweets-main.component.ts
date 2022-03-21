@@ -4,13 +4,13 @@ import { Observable, Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SocialAuthService } from 'angularx-social-login';
 import { DataService } from '../../../services/data.service';
-import { Socket } from 'ngx-socket-io';
 import { Tweet, User } from '../../../models';
 import { FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { map, startWith, takeUntil } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { MySocket } from '../../../extensions';
 
 @Component({
     selector: 'app-tweets-main',
@@ -32,12 +32,13 @@ export class TweetsMainComponent implements OnInit, OnDestroy {
     public topics: string[];
     public allTopics: string[];
 
+    private socket: any;
     private _onDestroy: Subject<void> = new Subject<void>();
 
     constructor(
         private router: Router,
         private toasterSrv: ToastrService,
-        private socketIO: Socket,
+        private socketIO: MySocket,
         private dataSrv: DataService,
         private authService: SocialAuthService,
     ) {
@@ -45,11 +46,37 @@ export class TweetsMainComponent implements OnInit, OnDestroy {
         this.tweets = new Array<Tweet>();
         this.user = this.dataSrv.getUser();
 
+        this.allTopics = [
+            'Cats',
+            'Technology',
+            'Augmented reality',
+            'Cloud computing',
+            'Cloud platforms',
+            'Computer programming',
+            'Cryptocurrencies',
+            'Data science',
+            'Databases',
+            'Drone technology',
+            'FinTech',
+            'Information security',
+            'Internet of things',
+            'Tech brands',
+            'Tech news',
+            'Tech personalities',
+            'Virtual reality'
+        ];
+
+        this.topics = this.dataSrv.getTopics();
+
+        if (!this.topics || this.topics?.length <= 0) {
+            this.topics = ['Cats'];
+            this.dataSrv.setTopics(this.topics);
+        }
+
+        this.allTopics.concat(this.topics);
 
         this.separatorKeysCodes = [ENTER, COMMA];
         this.topicsCtrl = new FormControl();
-        this.topics = ['Code', 'Typescript', 'C#'];
-        this.allTopics = ['Code', 'Typescript', 'C#', 'Cats', 'Russian'];
 
         this.filteredTopics = this.topicsCtrl
             .valueChanges
@@ -62,13 +89,16 @@ export class TweetsMainComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.socketIO.connect();
+        this.changeTopicsOnSocket();
 
         this.socketIO.on('connect', () => {
             console.log('Connected to server...');
         });
 
         this.socketIO.on('tweet', (tweet: Tweet) => {
+            if (this.tweets?.length > 500) {
+                this.tweets = [];
+            }
             this.tweets.unshift(tweet);
         });
     }
@@ -95,7 +125,7 @@ export class TweetsMainComponent implements OnInit, OnDestroy {
 
         // Add our topic
         if ((value || '').trim()) {
-            this.topics.push(value.trim());
+            this.addTopic(value.trim());
         }
 
         // Reset the input value
@@ -107,19 +137,46 @@ export class TweetsMainComponent implements OnInit, OnDestroy {
     }
 
     onRemoveTopic(topic: string): void {
-        const index = this.topics.indexOf(topic);
+        if (topic?.length > 1) {
+            const index = this.topics.indexOf(topic);
 
-        if (index >= 0) {
-            this.topics.splice(index, 1);
+            if (index >= 0) {
+                this.topics.splice(index, 1);
+            }
         }
     }
 
     onSelectedTopic(event: MatAutocompleteSelectedEvent): void {
-        this.topics.push(event.option.viewValue);
+        this.addTopic(event.option.viewValue);
         this.topicInput.nativeElement.value = '';
         this.topicsCtrl.setValue(null);
     }
 
+    onSaveTopics(): void {
+        this.changeTopicsOnSocket();
+    }
+
+    private changeTopicsOnSocket(): void {
+        this.socketIO.disconnect();
+        this.socketIO.ioSocket.io.opts.query = {
+            topics: this.topics?.join(',')
+        };
+
+        this.dataSrv.setTopics(this.topics);
+        this.socket = this.socketIO.connect();
+    }
+
+    private addTopic(value: string): void {
+        value = value.trim();
+
+        const isExist = this.topics
+            ?.indexOf(value) > -1;
+
+        if (this.topics?.length < 4 && !isExist) {
+            this.topics.push(value);
+        }
+        this.allTopics.concat(this.topics);
+    }
 
     private filterTopics(value: string): string[] {
         const filterValue = value.toLowerCase().trim();

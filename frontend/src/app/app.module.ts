@@ -21,6 +21,7 @@ import * as config from './config/app.config';
 
 // Socket.
 import { SocketIoModule } from 'ngx-socket-io';
+import { MySocket } from './extensions';
 
 @NgModule({
     declarations: [
@@ -42,10 +43,7 @@ import { SocketIoModule } from 'ngx-socket-io';
         }),
 
         // SocketIO
-        SocketIoModule.forRoot({
-            url: config.apiUrl,
-            options: { autoConnect: false, }
-        }),
+        SocketIoModule,
 
         // Directives
         DirectivesModule,
@@ -55,6 +53,7 @@ import { SocketIoModule } from 'ngx-socket-io';
     ],
     providers: [
         AuthGuard,
+        MySocket,
         {
             provide: 'SocialAuthServiceConfig',
             useValue: {

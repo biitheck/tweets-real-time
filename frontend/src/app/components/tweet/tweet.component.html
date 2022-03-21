@@ -47,8 +47,37 @@
                 fxLayoutAlign="center center"
                 class="tweet__media"
             >
-                    <img [src]="media?.url" />
+                <img [src]="media?.url" />
             </div>
+
+            <vm-player *ngIf="media?.type === 'video'">
+                <vm-video
+                    cross-origin="true"
+                    [poster]="media?.preview_image_url"
+                >
+                    <source data-src="{{ media?.url }}" />
+                </vm-video>
+                <vm-default-ui no-controls>
+                    <vm-scrim></vm-scrim>
+
+                    <vm-controls full-width pin="topLeft">
+                        <vm-control-spacer></vm-control-spacer>
+                        <vm-mute-control></vm-mute-control>
+                    </vm-controls>
+
+                    <vm-controls pin="center">
+                        <vm-playback-control
+                            hide-tooltip
+                            style="--vm-control-scale: 1.7; margin: 0px auto"
+                        ></vm-playback-control>
+                    </vm-controls>
+
+                    <vm-controls full-width pin="bottomLeft">
+                        <vm-control-spacer></vm-control-spacer>
+                        <vm-time-progress></vm-time-progress>
+                    </vm-controls>
+                </vm-default-ui>
+            </vm-player>
             <!-- #region Media -->
 
             <!-- #region Public Metrics -->

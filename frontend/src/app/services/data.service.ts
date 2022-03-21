@@ -26,6 +26,15 @@ export class DataService {
         return JSON.parse(payload) !== undefined && JSON.parse(payload) !== null;
     }
 
+    setTopics(tags: string[]): void {
+        this.webStorageSrv.set('topics', JSON.stringify(tags));
+    }
+
+    getTopics(): string[] {
+        const payload = this.webStorageSrv.get('topics');
+        return JSON.parse(payload) as string[];
+    }
+
     clean(): void {
         this.webStorageSrv.clear();
     }

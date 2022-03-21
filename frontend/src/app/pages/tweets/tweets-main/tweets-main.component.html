@@ -1,7 +1,15 @@
 <div style="padding: 2.5rem">
-    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
-        <div fxFlex="25" fxFlex.xs="100">
-            <app-card>
+    <div
+        fxLayout="row"
+        fxLayout.sm="row wrap"
+        fxLayout.xs="row wrap"
+        fxLayoutAlign="start start"
+        fxLayoutGap="20px"
+        fxLayoutGap.xs="0px"
+        fxLayoutGap.sm="0px"
+    >
+        <div fxFlex.xs="100" fxFlex.sm="100">
+            <app-card style>
                 <div fxLayout="column" fxLayoutGap="20px">
                     <app-user-info [user]="user"></app-user-info>
 
@@ -15,11 +23,15 @@
                                 color="primary"
                                 *ngFor="let topic of topics"
                                 [selectable]="true"
-                                [removable]="true"
+                                [removable]="topics?.length > 1"
                                 (removed)="onRemoveTopic(topic)"
                             >
                                 {{ topic }}
-                                <mat-icon matChipRemove>cancel</mat-icon>
+                                <mat-icon
+                                    *ngIf="topics?.length > 1"
+                                    matChipRemove
+                                    >cancel</mat-icon
+                                >
                             </mat-chip>
                             <input
                                 placeholder="Select a topic..."
@@ -46,6 +58,14 @@
                         </mat-autocomplete>
                     </mat-form-field>
 
+                    <button
+                        mat-flat-button
+                        color="accent"
+                        (click)="onSaveTopics()"
+                    >
+                        Save
+                    </button>
+
                     <button mat-button color="accent" (click)="signOut()">
                         Sign out
                     </button>
@@ -54,12 +74,14 @@
         </div>
 
         <div
-            fxFlex
+            fxFlex="50"
+            fxFlex.xs="100"
+            fxFlex.sm="100"
+            fxFlex.md="66.66"
             fxLayout="column"
             fxLayoutGap="20px"
             myPerfectScrollbar
-            class="scrollable"
-            style="height: calc(100vh - 80px)"
+            class="scrollable tweets_content"
         >
             <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet">
             </app-tweet>

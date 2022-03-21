@@ -1,6 +1,8 @@
 @import "variables";
 @import "breakpoints";
 @import "helpers";
+@import '~@vime/core/themes/default.css';
+@import '~@vime/core/themes/light.css';
 
 @font-face {
     font-family: "Roboto Mono";
@@ -49,6 +51,12 @@ body {
     overflow-x: hidden;
 }
 
+.truncate {
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* Remove Autocomple Chrome */
 input:-webkit-autofill {
     box-shadow: 0 0 0 30px #f3f3f3 inset !important;
