@@ -1,0 +1,74 @@
+@import 'variables';
+@import "~@angular/material/theming";
+
+$my-app-primary-palette: (
+    50: #e1e5f0,
+    100: #b4bfd8,
+    200: #8294bf,
+    300: #5069a5,
+    400: #2b4991,
+    500: secondary-color,
+    600: #042476,
+    700: #041f6b,
+    800: #031961,
+    900: #010f4e,
+    A100: #818dff,
+    A200: #4e5fff,
+    A400: #1b31ff,
+    A700: #021aff,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #ffffff,
+        400: #ffffff,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #ffffff,
+        A400: #ffffff,
+        A700: #ffffff,
+    ),
+);
+
+$my-app-accent-palette: (
+    50: #f8e2e4,
+    100: #eeb6bc,
+    200: #e3858f,
+    300: #d75462,
+    400: #cf3040,
+    500: $secondary-color,
+    600: #c00a1a,
+    700: #b90816,
+    800: #b10612,
+    900: #a4030a,
+    A100: #ffcecf,
+    A200: #ff9b9d,
+    A400: #ff686b,
+    A700: #ff4f52,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #ffffff,
+        400: #ffffff,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #000000,
+        A700: #000000,
+    ),
+);
+
+$my-app-primary: mat-palette($my-app-primary-palette);
+$my-app-accent: mat-palette($my-app-accent-palette);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
+
+@include angular-material-theme($my-app-theme);

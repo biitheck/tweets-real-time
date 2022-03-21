@@ -1,0 +1,121 @@
+<app-card>
+    <div
+        fxLayout="row"
+        fxLayoutAlign="start start"
+        fxLayoutGap="20px"
+        class="tweet"
+    >
+        <!-- #region Avatar -->
+        <div fxFlex="42px">
+            <div
+                class="tweet__avatar"
+                [ngStyle]="{
+                    'background-image':
+                        'url(' + twitterUser?.profile_image_url + ')'
+                }"
+            ></div>
+        </div>
+        <!-- #endregion Avatar -->
+
+        <div fxFlex fxLayout="column">
+            <!-- #region User Info -->
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <span class="tweet__name">{{ twitterUser?.name }}</span>
+                <span class="tweet__username"
+                    >@{{ twitterUser?.username }}</span
+                >
+            </div>
+            <!-- #endregion User Info -->
+
+            <!-- #region Time -->
+            <span class="tweet__created_at">{{
+                tweet?.data?.created_at | date: 'MM-dd-yy HH:mm:ss'
+            }}</span>
+            <!-- #endregion Time -->
+
+            <!-- #region Tweet -->
+            <span
+                class="tweet__text"
+                [innerHTML]="tweet?.data?.text | hmColor: '#0abab5'"
+            ></span>
+            <!-- #endregion Tweet -->
+
+            <!-- #region Media -->
+            <div
+                *ngIf="media?.type === 'photo'"
+                fxLayout="column"
+                fxLayoutAlign="center center"
+                class="tweet__media"
+            >
+                <img [src]="media?.url" />
+            </div>
+
+            <vm-player *ngIf="media?.type === 'video'">
+                <vm-video
+                    cross-origin="true"
+                    [poster]="media?.preview_image_url"
+                >
+                    <source data-src="{{ media?.url }}" />
+                </vm-video>
+                <vm-default-ui no-controls>
+                    <vm-scrim></vm-scrim>
+
+                    <vm-controls full-width pin="topLeft">
+                        <vm-control-spacer></vm-control-spacer>
+                        <vm-mute-control></vm-mute-control>
+                    </vm-controls>
+
+                    <vm-controls pin="center">
+                        <vm-playback-control
+                            hide-tooltip
+                            style="--vm-control-scale: 1.7; margin: 0px auto"
+                        ></vm-playback-control>
+                    </vm-controls>
+
+                    <vm-controls full-width pin="bottomLeft">
+                        <vm-control-spacer></vm-control-spacer>
+                        <vm-time-progress></vm-time-progress>
+                    </vm-controls>
+                </vm-default-ui>
+            </vm-player>
+            <!-- #region Media -->
+
+            <!-- #region Public Metrics -->
+            <div
+                class="tweet__public_metrics"
+                fxLayout="row"
+                fxLayoutAlign="start end"
+            >
+                <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="tweet__public_metrics--red"
+                            >favorite</mat-icon
+                        >
+                        <span class="tweet__public_metrics__count">{{
+                            tweet?.data?.public_metrics?.like_count
+                        }}</span>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="tweet__public_metrics--blue"
+                            >comment</mat-icon
+                        >
+                        <span class="tweet__public_metrics__count">{{
+                            tweet?.data?.public_metrics?.reply_count
+                        }}</span>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="tweet__public_metrics--green"
+                            >repeat</mat-icon
+                        >
+                        <span class="tweet__public_metrics__count">{{
+                            tweet?.data?.public_metrics?.retweet_count
+                        }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion Public Metrics -->
+        </div>
+    </div>
+</app-card>

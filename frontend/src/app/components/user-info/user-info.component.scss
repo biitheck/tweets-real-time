@@ -1,0 +1,26 @@
+@import "variables";
+
+:host {
+    .user_info {
+        &__avatar {
+            width: 58px;
+            height: 58px;
+            background-size: cover;
+            display: block;
+            border-radius: 125px;
+            -webkit-border-radius: 125px;
+            -moz-border-radius: 125px;
+        }
+
+        &__name {
+            line-height: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        &__email {
+            color: $secondary-color;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+    }
+}

@@ -1,26 +1,18 @@
 # Twitter real-time app
 
-The application listens to a list of topics on twitter and displays them in real-time in a browser.
-
-## Installation
-Twitter real-time app requires [Node.js](https://nodejs.org/) v12+ to run.
-
-# Frontend Project 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.3.
 
 ## Installation
+
+Twitter real-time app requires [Node.js](https://nodejs.org/) v12+ to run.
 
 Install the dependencies and devDependencies
 ```sh
 npm install
 ```
-
 ## Development server
 
-```sh
-npm start
-```
-Navigate to `http://localhost:8000/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:8000/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -41,30 +33,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-# Backend
-
-## Installation
-
-Install the dependencies and devDependencies
-```sh
-npm install
-```
-
-## Development server
-
-```sh
-npm start
-```
-
-## Build
-
-```sh
-npm build
-```
-
-
-
-## License
-
-MIT

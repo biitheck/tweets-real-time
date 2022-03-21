@@ -1,0 +1,85 @@
+@import "variables";
+@import "breakpoints";
+@import "helpers";
+@import '~@vime/core/themes/default.css';
+@import '~@vime/core/themes/light.css';
+
+@font-face {
+    font-family: "Roboto Mono";
+    font-style: normal;
+    src: url("./assets/fonts/Roboto_Mono/RobotoMono-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Roboto Mono";
+    src: url("./assets/fonts/Roboto_Mono/RobotoMono-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Roboto Mono";
+    font-style: italic;
+    src: url("./assets/fonts/Roboto_Mono/RobotoMono-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Roboto Mono";
+    font-style: italic;
+    src: url("./assets/fonts/Roboto_Mono/RobotoMono-BoldItalic.ttf") format("truetype");
+    font-weight: bold;
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: $font-family;
+    font-size: 1.2rem;
+    line-height: 1.92rem;
+    font-weight: 300;
+    color: $primary-color;
+    background-color: $black-color;
+    overflow: hidden;
+}
+
+* {
+    font-family: $font-family;
+}
+
+.scrollable {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+}
+
+.truncate {
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Remove Autocomple Chrome */
+input:-webkit-autofill {
+    box-shadow: 0 0 0 30px #f3f3f3 inset !important;
+    -webkit-text-fill-color: #2a2a2a !important;
+    font-size: 14px !important;
+    -webkit-font-smoothing: antialiased;
+}
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0 30px #f3f3f3 inset !important;
+    -webkit-text-fill-color: #2a2a2a !important;
+    font-size: 14px !important;
+    -webkit-font-smoothing: antialiased;
+}
+/* End Autocomple Chrome */
+
+/* Override ngx-toastr */
+.toast-container .toast {
+    border-radius: 0px 0px 3px 3px !important;
+    background-color: #fff !important;
+    box-shadow: 0 0 6px #999999 !important;
+}
+
+.toast-container .ngx-toastr {
+    padding: 15px !important;
+}
+/* Override ngx-toastr */
