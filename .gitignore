@@ -33,3 +33,4 @@ backend/build/*
 
 frontend/.vscode/launch.json
 package-lock.json
+backend/wwwroot
