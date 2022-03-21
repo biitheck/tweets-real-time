@@ -10,12 +10,11 @@ ARG GOOGLE_CLIENT_ID
 RUN cd frontend && mkdir environments && touch environment.prod.ts
 RUN cd frontend && echo "export const environment = { production: true, apiServer: { url: '', prefix: 'api/v1', }, google: { clientId: '${GOOGLE_CLIENT_ID}', }, userKey: 'user_data', messages: { success: { title: 'Success', message: 'Action was completed successfully' }, error: { title: 'Error...', message: 'Please try again', }},};" > environments/environment.prod.ts
 # Install Angular Cli
-RUN cd frontend && npm install @angular/cli@10.2.3
 RUN cd frontend && ng --version
-RUN cd frontend && node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --prod --aot
+RUN cd frontend && npm install @angular/cli@10.2.3 -g
 # Build frontend.
 RUN cd frontend && npm install --verbose --force 
-RUN cd frontend && npm run build
+RUN cd frontend && ng build --prod --aot
 
 # Server
 FROM node:16 AS server-build
