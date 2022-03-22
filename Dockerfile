@@ -15,7 +15,7 @@ RUN cd frontend && npm install @angular/cli@10.2.3 -g
 # Build frontend.
 RUN cd frontend && npm install --verbose 
 # Build environment.prod.ts file.
-RUN cd frontend && node build-environment.js --GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+RUN cd frontend && node build-environment.js --GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
 RUN cd frontend && node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --prod --aot
 
 # Server
