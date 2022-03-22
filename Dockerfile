@@ -8,14 +8,15 @@ ARG GOOGLE_CLIENT_ID
 
 # Install Angular Cli
 RUN cd frontend && npm install @angular/cli@10.2.3 -g
-# Build environment.prod.ts file.
-RUN cd frontend && mkdir src/environments
-RUN cd frontend && echo "export const environment = { production: true, apiServer: { url: '', prefix: 'api/v1', }, google: { clientId: '${GOOGLE_CLIENT_ID}', }, userKey: 'user_data', messages: { success: { title: 'Success', message: 'Action was completed successfully' }, error: { title: 'Error...', message: 'Please try again', }},};" > src/environments/environment.prod.ts
-RUN cd frontend && echo "export const environment = { production: true, apiServer: { url: '', prefix: 'api/v1', }, google: { clientId: '${GOOGLE_CLIENT_ID}', }, userKey: 'user_data', messages: { success: { title: 'Success', message: 'Action was completed successfully' }, error: { title: 'Error...', message: 'Please try again', }},};" > src/environments/environment.ts
+# RUN cd frontend && mkdir src/environments
+# RUN cd frontend && echo "export const environment = { production: true, apiServer: { url: '', prefix: 'api/v1', }, google: { clientId: '${GOOGLE_CLIENT_ID}', }, userKey: 'user_data', messages: { success: { title: 'Success', message: 'Action was completed successfully' }, error: { title: 'Error...', message: 'Please try again', }},};" > src/environments/environment.prod.ts
+# RUN cd frontend && echo "export const environment = { production: true, apiServer: { url: '', prefix: 'api/v1', }, google: { clientId: '${GOOGLE_CLIENT_ID}', }, userKey: 'user_data', messages: { success: { title: 'Success', message: 'Action was completed successfully' }, error: { title: 'Error...', message: 'Please try again', }},};" > src/environments/environment.ts
 
 # Build frontend.
-RUN cd frontend && npm install --verbose --force 
-RUN cd frontend && npm run build:prod
+RUN cd frontend && npm install --verbose 
+# Build environment.prod.ts file.
+RUN cd frontend && node build-environment.js --GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+RUN cd frontend && node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --prod --aot
 
 # Server
 FROM node:16 AS server-build
