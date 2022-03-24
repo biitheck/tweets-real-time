@@ -1,0 +1,68 @@
+image: node:16
+
+stages:
+    - install
+    - test
+    - build
+    - deploy
+    
+install:
+    stage: install
+    script:
+        - cd $CI_PROJECT_DIR/frontend && npm install
+    artifacts:
+        expire_in: 1h
+        paths:
+            - '$CI_PROJECT_DIR/frontend/node_modules/'
+    cache:
+        paths:
+            - '$CI_PROJECT_DIR/frontend/node_modules/'
+    only:
+        - staging
+
+test:
+    stage: test
+    dependencies:
+        - install
+    script:
+        - echo "Test here :( 🔫"
+    only:
+        - staging
+
+build:
+    stage: build
+    dependencies:
+        - install
+    script:
+        - echo building the frontend 🚧
+        - cd $CI_PROJECT_DIR/frontend
+        - mkdir src/environments
+        - echo "$ENV_ANGULAR_SETTINGS" > src/environments/environment.ts
+        - echo "$ENV_ANGULAR_SETTINGS" > src/environments/environment.prod.ts
+        - npm run build:prod
+        - echo the frontend was built successfully ✅
+    artifacts:
+        paths:
+            - '$CI_PROJECT_DIR/backend'
+        expire_in: 1h
+    only:
+        - staging
+
+deploy:
+    type: deploy
+    stage: deploy
+    image: ruby:latest
+    before_script:
+        - apt-get update -qy
+        - apt-get install -y ruby-dev
+        - gem install dpl
+    script:
+        - cd $CI_PROJECT_DIR/backend
+        - ls -all
+        - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY --skip-cleanup=true
+    artifacts:
+        paths:
+            - '$CI_PROJECT_DIR/backend'
+        untracked: true
+    only:
+        - staging
