@@ -2,6 +2,13 @@
 
 The application listens to a list of topics on twitter and displays them in real-time in a browser.
 
+## C4 Model
+!["Context"](/docs/Context.png)
+
+!["Containers"](/docs/Containers.png)
+
+!["Components"](/docs/Components.png)
+
 ## Installation
 Twitter real-time app requires [Node.js](https://nodejs.org/) v12+ to run.
 
