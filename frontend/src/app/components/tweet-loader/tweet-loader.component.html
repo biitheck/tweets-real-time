@@ -1,0 +1,87 @@
+<app-card>
+    <div
+        fxLayout="row"
+        fxLayoutAlign="start start"
+        fxLayoutGap="20px"
+        class="tweet"
+    >
+        <!-- #region Avatar -->
+        <div fxFlex="42px">
+            <ngx-skeleton-loader
+                appearance="circle"
+                [theme]="{
+                    width: '42px',
+                    height: '42px'
+                }"
+            ></ngx-skeleton-loader>
+        </div>
+        <!-- #endregion Avatar -->
+
+        <div fxFlex fxLayout="column">
+            <!-- #region User Info -->
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <span>
+                    <ngx-skeleton-loader
+                        [theme]="{
+                            width: '130px',
+                            'border-radius': '0',
+                            height: '10px',
+                            margin: '0px'
+                        }"
+                    ></ngx-skeleton-loader
+                ></span>
+                <span>
+                    <ngx-skeleton-loader
+                        [theme]="{
+                            width: '90px',
+                            'border-radius': '0',
+                            height: '10px',
+                            margin: '0px'
+                        }"
+                    ></ngx-skeleton-loader
+                ></span>
+            </div>
+            <!-- #endregion User Info -->
+
+            <!-- #region Time -->
+            <ngx-skeleton-loader
+                [theme]="{
+                    width: '70px',
+                    'border-radius': '0',
+                    height: '10px',
+                    margin: '0px'
+                }"
+            ></ngx-skeleton-loader>
+            <!-- #endregion Time -->
+
+            <!-- #region Tweet -->
+            <div>
+                <ngx-skeleton-loader
+                    [theme]="{
+                        width: '100%',
+                        'border-radius': '0',
+                        height: '10px',
+                        margin: '0px'
+                    }"
+                ></ngx-skeleton-loader>
+                <ngx-skeleton-loader
+                    [theme]="{
+                        width: '70%',
+                        'border-radius': '0',
+                        height: '10px',
+                        margin: '0px'
+                    }"
+                ></ngx-skeleton-loader>
+                <ngx-skeleton-loader
+                    [theme]="{
+                        width: '100%',
+                        'border-radius': '0',
+                        height: '10px',
+                        margin: '0px'
+                    }"
+                ></ngx-skeleton-loader>
+            </div>
+            <!-- #endregion Tweet -->
+        </div>
+    </div>
+</app-card>

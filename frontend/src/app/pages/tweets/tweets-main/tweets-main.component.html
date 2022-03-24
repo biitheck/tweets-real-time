@@ -11,8 +11,11 @@
         <div fxFlex.xs="100" fxFlex.sm="100">
             <app-card style>
                 <div fxLayout="column" fxLayoutGap="20px">
+                    <!-- #region User Info -->
                     <app-user-info [user]="user"></app-user-info>
+                    <!-- #endregion User Info -->
 
+                    <!-- #region Filter -->
                     <mat-form-field>
                         <mat-chip-list
                             #topicsList
@@ -34,7 +37,7 @@
                                 >
                             </mat-chip>
                             <input
-                                placeholder="Select a topic..."
+                                placeholder="Select or type a topic..."
                                 #topicInput
                                 [formControl]="topicsCtrl"
                                 [matAutocomplete]="autoComplete"
@@ -57,7 +60,9 @@
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
+                    <!-- #endregion Filter -->
 
+                    <!-- #region Action buttons -->
                     <button
                         mat-flat-button
                         color="accent"
@@ -69,10 +74,12 @@
                     <button mat-button color="accent" (click)="signOut()">
                         Sign out
                     </button>
+                    <!-- #endregion Action buttons -->
                 </div>
             </app-card>
         </div>
 
+        <!-- #region Skeleton loader -->
         <div
             fxFlex="50"
             fxFlex.xs="100"
@@ -82,9 +89,29 @@
             fxLayoutGap="20px"
             myPerfectScrollbar
             class="scrollable tweets_content"
+            *ngIf="tweets?.length <= 0"
+        >
+            <app-tweet-loader
+                *ngFor="let item of [0, 1, 2, 3]"
+            ></app-tweet-loader>
+        </div>
+        <!-- #endregion Skeleton loader -->
+
+        <!-- #region Tweets -->
+        <div
+            fxFlex="50"
+            fxFlex.xs="100"
+            fxFlex.sm="100"
+            fxFlex.md="66.66"
+            fxLayout="column"
+            fxLayoutGap="20px"
+            myPerfectScrollbar
+            class="scrollable tweets_content"
+            *ngIf="tweets?.length > 0"
         >
             <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet">
             </app-tweet>
         </div>
+        <!-- #endregion Tweets -->
     </div>
 </div>

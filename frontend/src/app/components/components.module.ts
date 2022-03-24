@@ -10,6 +10,7 @@ import { CardComponent } from './card/card.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { TweetComponent } from './tweet/tweet.component';
 import { HashtagMentionColLibModule } from 'hashtag-mention-colorizer';
+import { TweetLoaderComponent } from './tweet-loader/tweet-loader.component';
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { HashtagMentionColLibModule } from 'hashtag-mention-colorizer';
         CardComponent,
         UserInfoComponent,
         TweetComponent,
+        TweetLoaderComponent,
     ],
     exports: [
         ToastComponent,
@@ -30,6 +32,7 @@ import { HashtagMentionColLibModule } from 'hashtag-mention-colorizer';
         UserInfoComponent,
         TweetComponent,
         MatInputModule,
+        TweetLoaderComponent,
     ],
 })
 export class ComponentsModule { }
