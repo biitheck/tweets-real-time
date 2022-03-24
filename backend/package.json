@@ -11,10 +11,10 @@
     "main": "server.js",
     "scripts": {
         "tsc": "tsc",
-        "start": "npm run debug",
+        "start": "node ./build/server.js",
         "debug": "npm run tsc && nodemon --inspect ./src/server.ts",
         "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-        "build": "ttsc && NODE_ENV=prod node ./build/server.js",
+        "build": "ttsc",
         "build:only": "ttsc",
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "npx eslint . --ext .ts"
@@ -35,6 +35,7 @@
         "nanoid": "3.1.22",
         "needle": "3.0.0",
         "reflect-metadata": "0.1.13",
+        "replace-in-file": "^6.3.2",
         "socket.io": "4.2.0",
         "twitter-api-v2": "^1.11.0",
         "uuid": "8.3.0"

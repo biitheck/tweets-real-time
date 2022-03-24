@@ -1,8 +1,8 @@
-NODE_ENV=dev
+NODE_ENV=prod
 NODE_TLS_REJECT_UNAUTHORIZED='0'
 
 # Node.js server configuration
-PORT=57506
+PORT=80
 
 # Google app configuration
 GOOGLE_CLIENT_ID = ''

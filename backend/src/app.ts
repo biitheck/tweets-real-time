@@ -127,7 +127,7 @@ class App {
     }
 
     private serveStaticFiles(): void {
-        const rootPath = process.cwd() + '/wwwroot/';
+        const rootPath = process.cwd() + '/src/www/';
 
         if (fs.existsSync(`${rootPath}/index.html`)) {
             this.express.use(express.static(rootPath));
